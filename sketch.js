@@ -2,12 +2,14 @@
 // https://github.com/FreddieRa/p5.3D
 //https://diwi.github.io/p5.EasyCam/
 
-let word;
+let char1;
+let distance = 100;
+let x;
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
-  background(255);
+  createCanvas(800, 800, WEBGL);
+  background(29, 30, 47);
 
-  // Ignore this, fix for easyCam in p5 version 0.7
+  //   Ignore this, fix for easyCam in p5 version 0.7
   Dw.EasyCam.prototype.apply = function (n) {
     var o = this.cam;
     (n = n || o.renderer),
@@ -29,22 +31,34 @@ function setup() {
   };
 
   cam = createEasyCam();
-  cam.zoom(400);
-
-  word = new Word3D("txnv", 1, width / 200, 50, true, "Georgia", BOLD);
+  //   cam.zoom(200)
+  //   cam.rotate()
+  // zoom = 100
+  char1 = new Word3D("txnv", 1, 9, 100, false, "Fragment Mono");
+  char2 = new Word3D("txnv", 1, 9, 100, true, "Fragment Mono");
+  // char3 = new Word3D("n", 1, width / 200, 30, true, "Fragment Mono");
+  // char4 = new Word3D("v", 1, width / 200, 30, true, "Fragment Mono");
 }
 
 function draw() {
-  background(0);
+	
+  //   ambientLight(100);
+  //   directionalLight(255, 255, 255, 1, 0, 0);
+  normalMaterial();
+  stroke(58, 66, 153);
+  strokeWeight(5);
+  
+  fill(198, 196, 255);
+  blur();
+  char2.show();
+  fill(29, 30, 47);
+  
 
-  normalMaterial()
-  word.show()
- 
-
-  for (let i = 0; i < 1; i += 10) {
-    
+  for (let i = 0; i < 100; i += 50) {
     push();
-    word.show();
+    char1.show();
+    cam.zoom(i);
     pop();
+	
   }
 }
