@@ -1,10 +1,11 @@
-// thanks to https://www.openprocessing.org/sketch/674191
-// https://github.com/FreddieRa/p5.3D
-//https://diwi.github.io/p5.EasyCam/
-
 let char1;
-let distance = 100;
-let x;
+const capturer = new CCapture({
+	framerate: 30,
+	format: 'webm',
+	name: "txnv_gif",
+	quality: 100,
+	verbose: true
+})
 function setup() {
   createCanvas(800, 800, WEBGL);
   background(29, 30, 47);
@@ -31,34 +32,33 @@ function setup() {
   };
 
   cam = createEasyCam();
-  //   cam.zoom(200)
-  //   cam.rotate()
-  // zoom = 100
-  char1 = new Word3D("txnv", 1, 9, 100, false, "Fragment Mono");
-  char2 = new Word3D("txnv", 1, 9, 100, true, "Fragment Mono");
-  // char3 = new Word3D("n", 1, width / 200, 30, true, "Fragment Mono");
-  // char4 = new Word3D("v", 1, width / 200, 30, true, "Fragment Mono");
+
+  char1 = new Word3D("txnv", 30, 9, 80, true, "Fragment Mono");
+  char2 = new Word3D("txnv", 30, 9, 80, true, "Fragment Mono");
 }
 
 function draw() {
-	
-  //   ambientLight(100);
-  //   directionalLight(255, 255, 255, 1, 0, 0);
-  normalMaterial();
-  stroke(58, 66, 153);
-  strokeWeight(5);
-  
-  fill(198, 196, 255);
-  blur();
-  char2.show();
-  fill(29, 30, 47);
-  
-
+	let darkBlue = color(29, 30, 47);
+	let lavender = color(198,196,255);
+	let purple = color(58, 66, 153)
+	let lerp1 = lerpColor(purple, lavender, frameCount/700)
+  fill(lerp1);
+  rotateX(frameCount/100);
+  rotateY(frameCount/100)
   for (let i = 0; i < 100; i += 50) {
     push();
     char1.show();
-    cam.zoom(i);
+    char2.show();
+    cam.zoom((frameCount / 60));
+    stroke(darkBlue)
+    
     pop();
-	
   }
+  strokeWeight(frameCount/500);
+  if(frameCount>650){
+	frameCount=-650
+  }
+  
+  smooth()
+  
 }
